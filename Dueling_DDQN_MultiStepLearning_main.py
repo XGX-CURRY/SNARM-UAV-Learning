@@ -9,18 +9,19 @@ navigation for cellular-connected UAV
 """
 
 import numpy as np
-from keras.callbacks import TensorBoard
+from tensorflow.keras.callbacks import TensorBoard
 import tensorflow as tf
 from collections import deque
 import time
 import random
-from keras.layers import Input, Dense,Lambda
-from keras.models import Model
+from tensorflow.keras.layers import Dense,Lambda
+from tensorflow.keras.layers import Input
+from tensorflow.keras.models import Model
 from tqdm import tqdm
 import os
 import matplotlib.pyplot as plt
 from numpy import linalg as LA
-import keras.backend as K
+import tensorflow.keras.backend as K
 
 import radio_environment as rad_env #the actual radio environment
 
@@ -42,7 +43,7 @@ MIN_REWARD = -1000  # For model save
 nSTEP=30 #parameter for multi-step learning
 
 # Environment settings
-EPISODES = 5000#Number of training episodes
+EPISODES = 1000#Number of training episodes
 
 
 # Exploration settings
@@ -96,34 +97,37 @@ if not os.path.isdir('models'):
 # Own Tensorboard class
 class ModifiedTensorBoard(TensorBoard):
 
-    # Overriding init to set initial step and writer (we want one log file for all .fit() calls)
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.step = 1
-        self.writer = tf.summary.FileWriter(self.log_dir)
+        self.writer = tf.summary.create_file_writer(self.log_dir)
+        self._log_write_dir = self.log_dir
 
-    # Overriding this method to stop creating default log writer
     def set_model(self, model):
-        pass
+        self.model = model
 
-    # Overrided, saves logs with our step number
-    # (otherwise every .fit() will start writing from 0th step)
+        self._train_dir = os.path.join(self._log_write_dir, 'train')
+        self._train_step = self.model._train_counter
+
+        self._val_dir = os.path.join(self._log_write_dir, 'validation')
+        self._val_step = self.model._test_counter
+
+        self._should_write_train_graph = False
+
     def on_epoch_end(self, epoch, logs=None):
         self.update_stats(**logs)
 
-    # Overrided
-    # We train for one batch only, no need to save anything at epoch end
     def on_batch_end(self, batch, logs=None):
         pass
 
-    # Overrided, so won't close writer
     def on_train_end(self, _):
         pass
 
-    # Custom method for saving own metrics
-    # Creates writer, writes custom metrics and closes writer
     def update_stats(self, **stats):
-        self._write_logs(stats, self.step)
+        with self.writer.as_default():
+            for key, value in stats.items():
+                tf.summary.scalar(key, value, step = self.step)
+                self.writer.flush()
 
 
 class UAVEnv:
@@ -197,7 +201,7 @@ env = UAVEnv()
 # For more repetitive results
 random.seed(1)
 np.random.seed(1)
-tf.set_random_seed(1)
+tf.random.set_seed(1)
 
 
 # Agent class

@@ -12,8 +12,8 @@ import numpy as np
 #from collections import deque
 #import time
 import random
-from keras.layers import Input, Dense
-from keras.models import Model
+from tensorflow.keras.layers import Input, Dense
+from tensorflow.keras.models import Model
 #from tqdm import tqdm
 #import os
 #from sklearn.utils import shuffle
