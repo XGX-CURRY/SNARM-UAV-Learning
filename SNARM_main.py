@@ -46,7 +46,7 @@ MIN_REWARD = -1000  # For model save
 nSTEP=30 #parameter for multi-step learning
 
 # Environment settings
-EPISODES = 1000#Number of training episodes
+EPISODES = 100#Number of training episodes
 
 
 # Exploration settings
