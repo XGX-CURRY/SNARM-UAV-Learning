@@ -606,5 +606,5 @@ print('{}/{} episodes reach terminal'.format(ep_reach_terminal.count(True),episo
 
 
 #Save the simulation ressult
-np.savez('Dueling_DDQN_MultiStepLeaning_main_Results',return_mov_avg,ep_rewards,ep_trajecotry) 
+np.savez('Dueling_DDQN_MultiStepLeaning_main_Results.npz',return_mov_avg,ep_rewards,ep_trajecotry)
 
