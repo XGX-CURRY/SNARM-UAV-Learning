@@ -172,8 +172,7 @@ class UAVEnv:
         if LA.norm(next_state - DESTINATION) <= DIST_TOLERANCE:
             #求范数，默认是2范数，平方和的平方根
             terminal = True
-            print(
-                'Reach destination===============================!!!!!!!!')
+            print( 'Reach destination===============================!!!!!!!!')
         else:
             terminal = False
 
@@ -440,7 +439,7 @@ class DQNAgent:
         cur_traj = cur_traj[-10:]  # no return to the previous few locations
 
         for state in next_possible_states:
-            no_repetition.append(state not in cur_traj)
+            no_repetition.append(state not in cur_traj)  #确保没有重复
 
         actions_idx_all = np.arange(ACTION_SPACE_SIZE)
         actions_idx_valid = actions_idx_all[no_repetition]
@@ -449,13 +448,14 @@ class DQNAgent:
             action_idx = np.random.randint(0, ACTION_SPACE_SIZE)
             return action_idx
         else:
-            Q_value = self.model.predict(self.normalize_data(current_state))
+            Q_value = self.model.predict(self.normalize_data(current_state))  #input_data / MAX_VALS
             Q_value = Q_value[0]
             action_idx_maxVal = np.argmax(Q_value)
             if action_idx_maxVal in actions_idx_valid:
                 action_idx = action_idx_maxVal
             else:
                 action_idx = random.sample(actions_idx_valid.tolist(), 1)
+                #sample(list, k)返回一个长度为k新列表，新列表存放list所产生k个随机唯一的元素
                 action_idx = action_idx[0]
             return action_idx
 
