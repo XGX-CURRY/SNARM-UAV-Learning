@@ -45,7 +45,7 @@ MIN_REWARD = -1000  # For model save
 nSTEP = 30  # parameter for multi-step learning
 
 # Environment settings
-EPISODES = 5000  # Number of training episodes
+EPISODES = 100  # Number of training episodes
 
 # Exploration settings
 epsilon = 0.5  # not a constant, going to be decayed
@@ -59,7 +59,7 @@ epsilon_all = np.maximum(epsilon_all, MIN_EPSILON)
 plt.figure()
 plt.plot(episode_all, epsilon_all, 'b', linewidth=2)
 plt.grid(True, which='major', axis='both')
-plt.show()
+# plt.show()
 
 #  Stats settings
 AGGREGATE_STATS_EVERY = 50  # episodes
@@ -172,7 +172,7 @@ class UAVEnv:
         if LA.norm(next_state - DESTINATION) <= DIST_TOLERANCE:
             #求范数，默认是2范数，平方和的平方根
             terminal = True
-            print( 'Reach destination===============================!!!!!!!!')
+            # print( 'Reach destination===============================!!!!!!!!')
         else:
             terminal = False
 
@@ -259,7 +259,7 @@ class DQNAgent:
 
         plt.figure(0)
         plt.plot(DESTINATION[0, 0], DESTINATION[0, 1], 'r>', markersize=15)
-        plt.show()
+        # plt.show()
 
         num_states = 100_000
         xy_loc = env.random_generate_states(num_states)
@@ -308,11 +308,11 @@ class DQNAgent:
         plt.plot(epochs, mse, 'bo', label='Training MSE')
         plt.plot(epochs, val_mse, 'r', label='Validation MSE')
         plt.title('Training and validation MSE')
-        #        plt.ylim(0,100)
+        # plt.ylim(0,100)
         plt.xlabel('Epochs')
         plt.ylabel('MSE')
         plt.legend()
-        plt.show()
+        # plt.show()
 
         plt.figure()  # clear figure
         plt.plot(epochs, mae, 'bo', label='Training MAE')
@@ -322,7 +322,7 @@ class DQNAgent:
         plt.ylabel('MAE')
         #    plt.ylim(0,15)
         plt.legend()
-        plt.show()
+        # plt.show()
 
         result = self.model.evaluate(self.normalize_data(test_data), test_label)
         print(result)
@@ -586,13 +586,13 @@ for episode_idx in range(episode - 200, episode):
 plt.plot(DESTINATION[0, 0], DESTINATION[0, 1], 'b^', markersize=25)
 plt.xlabel('x (meter)', fontsize=14)
 plt.ylabel('y (meter)', fontsize=14)
-plt.show()
+# plt.show()
 fig.savefig('trajectoriesNoMapping.eps')
 fig.savefig('trajectoriesNoMapping.pdf')
 fig.savefig('trajectoriesNoMapping.jpg')
 
 print('{}/{} episodes reach terminal'.format(ep_reach_terminal.count(True), episode))
 
-# Save the simulation ressult
+# Save the simulation result
 np.savez('Dueling_DDQN_MultiStepLeaning_main_Results.npz', return_mov_avg, ep_rewards,
          ep_trajecotry)

@@ -43,7 +43,7 @@ MIN_REWARD = -1000  # For model save
 nSTEP = 30  # parameter for multi-step learning
 
 # Environment settings
-EPISODES = 5000  # Number of training episodes
+EPISODES = 500  # Number of training episodes
 
 # Exploration settings
 epsilon = 0.5  # not a constant, going to be decayed
@@ -82,7 +82,7 @@ ACTIONS = np.array([[0, 1],
 ACTION_SPACE_SIZE = ACTIONS.shape[0]
 
 MAX_SPEED = 20  # maximum UAV speed in m/s
-STEP_DISPLACEMENT = MAX_SPEED * delta_t  # The displacement per time step
+STEP_DISPLACEMENT = MAX_SPEED * delta_t  # The displacement per time step  s.t.
 
 # Create models folder
 if not os.path.isdir('models'):
@@ -156,7 +156,7 @@ class UAVEnv:
     def step(self, current_state, action_idx, cur_traj):  # the actual step
         self.episode_step += 1
 
-        next_state = current_state + STEP_DISPLACEMENT * ACTIONS[action_idx]
+        next_state = current_state + STEP_DISPLACEMENT * ACTIONS[action_idx]  #限制条件
         outbound = False
         out_bound_check1 = next_state < 0
         out_bound_check2 = next_state[0, 0] > X_MAX
@@ -174,11 +174,11 @@ class UAVEnv:
         else:
             terminal = False
 
-        if terminal or outbound:
+        if terminal or outbound:  #限制条件
             reward = -MOVE_PENALTY
         else:
             Pout = self.get_empirical_outage(next_state)
-            reward = -MOVE_PENALTY - NON_COVER_PENALTY * Pout
+            reward = -MOVE_PENALTY - NON_COVER_PENALTY * Pout  #奖励
 
             Pout = np.array(Pout)
             Pout = Pout.reshape((-1, 1))
@@ -218,8 +218,8 @@ class UAVEnv:
         if terminal or outbound:
             reward = -MOVE_PENALTY
         else:  # This part makes a difference between the actual step and the simulated step
-            Pout = radio_map.predict_outage_prob(
-                next_state)  # The outage probability is predicted based on the radio map, instead of being measured
+            Pout = radio_map.predict_outage_prob(next_state)
+            # The outage probability is predicted based on the radio map, instead of being measured
             reward = -MOVE_PENALTY - NON_COVER_PENALTY * Pout[0]
 
         done = False
