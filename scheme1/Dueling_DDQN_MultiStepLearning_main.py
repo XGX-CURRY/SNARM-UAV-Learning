@@ -39,10 +39,10 @@ UPDATE_TARGET_EVERY = 5  # Terminal states (end of episodes)
 MAX_STEP = 200  # maximum number of time steps per episode
 MODEL_NAME = '512_256_128_128'  #这里是隐藏层中神经元个数
 MIN_REWARD = -1000  # For model save
-nSTEP = 30  # parameter for multi-step learning
+nSTEP = 1  # parameter for multi-step learning
 
 # Environment settings
-EPISODES = 100  # Number of training episodes
+EPISODES = 2000  # Number of training episodes
 
 # Exploration settings
 epsilon = 0.5  # not a constant, going to be decayed
@@ -56,7 +56,7 @@ epsilon_all = np.maximum(epsilon_all, MIN_EPSILON)
 plt.figure()
 plt.plot(episode_all, epsilon_all, 'b', linewidth=2)
 plt.grid(True, which='major', axis='both')
-plt.show()
+# plt.show()
 
 #  Stats settings
 AGGREGATE_STATS_EVERY = 50  # episodes
@@ -66,7 +66,7 @@ delta_t = 0.5  # time step length in seconds
 
 # penalty measured in terms of the time required to reach destination
 REACH_DES_REWARD = 200
-MOVE_PENALTY = 1
+MOVE_PENALTY = 1    #单位时间能耗
 NON_COVER_PENALTY = 40
 OUT_BOUND_PENALTY = 10000
 
@@ -270,7 +270,7 @@ class DQNAgent:
 
         plt.figure(0)
         plt.plot(DESTINATION[0, 0], DESTINATION[0, 1], 'r>', markersize=15)
-        plt.show()
+        # plt.show()
 
         num_states = 100_000
         xy_loc = env.random_generate_states(num_states)
@@ -323,7 +323,7 @@ class DQNAgent:
         plt.xlabel('Epochs')
         plt.ylabel('MSE')
         plt.legend()
-        plt.show()
+        # plt.show()
 
         plt.figure()  # clear figure
         plt.plot(epochs, mae, 'bo', label='Training MAE')
@@ -333,7 +333,7 @@ class DQNAgent:
         plt.ylabel('MAE')
         #    plt.ylim(0,15)
         plt.legend()
-        plt.show()
+        # plt.show()
 
         result = self.model.evaluate(self.normalize_data(test_data), test_label)
         print(result)
@@ -596,12 +596,12 @@ for episode_idx in range(episode - 200, episode):
 plt.plot(DESTINATION[0, 0], DESTINATION[0, 1], 'b^', markersize=25)
 plt.xlabel('x (meter)', fontsize=14)
 plt.ylabel('y (meter)', fontsize=14)
-plt.show()
-fig.savefig('trajectoriesNoMapping.eps')
-fig.savefig('trajectoriesNoMapping.pdf')
-fig.savefig('trajectoriesNoMapping.jpg')
+# plt.show()
+fig.savefig('trajectoriesNoMapping_ddqn.eps')
+fig.savefig('trajectoriesNoMapping_ddqn.pdf')
+fig.savefig('trajectoriesNoMapping_ddqn.jpg')
 
 print('{}/{} episodes reach terminal'.format(ep_reach_terminal.count(True), episode))
 
 # Save the simulation ressult
-np.savez('Dueling_DDQN_MultiStepLeaning_main_Results_100.npz', return_mov_avg, ep_rewards, ep_trajecotry)
+np.savez('Dueling_DDQN_main_Results.npz', return_mov_avg, ep_rewards, ep_trajecotry)

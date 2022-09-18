@@ -40,10 +40,10 @@ UPDATE_TARGET_EVERY = 5  # Terminal states (end of episodes)
 MAX_STEP = 200  # maximum number of time steps per episode
 MODEL_NAME = '512_256_128_128'
 MIN_REWARD = -1000  # For model save
-nSTEP = 30  # parameter for multi-step learning
+nSTEP = 50  # parameter for multi-step learning
 
 # Environment settings
-EPISODES = 5000  # Number of training episodes
+EPISODES = 2000  # Number of training episodes
 
 # Exploration settings
 epsilon = 0.5  # not a constant, going to be decayed
