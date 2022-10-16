@@ -3,26 +3,26 @@ import numpy as np
 
 fig = plt.figure("UAV Energy Consumption")
 ax = plt.gca()
-# #去掉边框
+# # # #去掉边框
 ax.spines['top'].set_color('none')
 ax.spines['right'].set_color('none')
-# 移位置 设为原点相交
+# # # 移位置 设为原点相交
 ax.xaxis.set_ticks_position('bottom')
 ax.spines['bottom'].set_position(('data', 0))
 ax.yaxis.set_ticks_position('left')
 ax.spines['left'].set_position(('data', 0))
-x = [0, 1, 2, 3, 4, 5, 6]
-y = [0, 1e3, 2e3, 3e3, 4e3, 5e3, 6e3]
-plt.xticks(x, labels=["0", "20", "40", "60", "80", "100", "120"])
-plt.yticks(y, labels=["0", "1e3", "2e3", "3e3", "4e3", "5e3", "6e3"])
+x = [0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5]
+y = [0,0.5e3, 1e3, 1.5e3, 2e3, 2.5e3, 3e3, 3.5e3]
+plt.ylim(0,4e3)  #设置坐标显示范围
+plt.xticks(x, labels=["0", "20", "40", "60", "80", "100", "120", "140"])
+plt.yticks(y, labels=["0","0.5e3", "1e3", "1.5e3", "2e3", "2.5e3", "3e3", "3.5e3"])
 plt.grid()
-plt.plot(x, [0, 0.08e4, 0.12e4, 0.2e4, 0.3e4, 0.3e4, 0.3e4], 'o-r', linewidth=2, )
-plt.plot(x, [0, 0.16e4, 0.26e4, 0.42e4, 0.42e4, 0.42e4, 0.42e4], '*--b', linewidth=2)
-plt.plot(x, [0, 0.2e4, 0.36e4, 0.5e4, 0.5e4, 0.5e4, 0.5e4], '^--k', linewidth=2)
+plt.plot(x, [3.15e3, 2.9e3, 1.95e3, 1.25e3, 1.25e3, 1.25e3, 1.25e3, 1.25e3], 'o-r', linewidth=2)
+plt.plot(x, [3.25e3, 3.15e3, 2.9e3, 2.32e3, 1.96e3, 1.75e3, 1.75e3, 1.75e3], '*--b', linewidth=2)
+plt.plot(x, [3.5e3, 3.42e3, 3.20e3, 2.85e3, 2.35e3, 2.1e3, 2e3, 2e3], '^--k', linewidth=2)
 plt.xlabel('UAV Energy Consumption(kJ)')
 plt.ylabel('Expected Sum AoI')
 plt.legend(['Dueling_DDQN_MultiStepLearning', 'Dueling_DDQN', 'DDQN'])
 plt.show()
 
-
-#maxEnergy = 43.42Wh = 155.952kJ
+# maxEnergy = 43.42Wh = 155.952kJ
