@@ -21,6 +21,13 @@ from numpy import linalg as LA
 import tensorflow.keras.backend as K
 
 import radio_environment as rad_env  # the actual radio environment
+# 指定使用GPU
+gpus = tf.config.experimental.list_physical_devices('GPU')
+if gpus:
+  # 设置GPU可见性
+  tf.config.experimental.set_visible_devices(gpus[0], 'GPU')
+  # 设置GPU内存增长为按需分配
+  tf.config.experimental.set_memory_growth(gpus[0], True)
 
 X_MAX = 2000.0
 Y_MAX = 2000.0  # The area region in meters
