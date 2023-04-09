@@ -55,6 +55,26 @@ result_DDQN_snr2 = np.load('Dueling_DDQN_main_Results_snr2.npz', allow_pickle=Tr
 return_mov_avg_DDQN_snr2 = result_DDQN_snr2['arr_0']
 reward_mov_avg_DDQN_snr2 = result_DDQN_snr2['arr_1']
 trajecotry_mov_avg_DDQN_snr2 = result_DDQN_snr2['arr_2']
+
+result_DDQN_5000_1 = np.load('Dueling_DDQN_MultiStepLeaning_main_Results_5000_1.npz', allow_pickle=True)
+return_mov_avg_5000_1 = result_DDQN_5000_1['arr_0']
+reward_mov_avg_5000_1 = result_DDQN_5000_1['arr_1']
+trajecotry_mov_avg_DDQN_5000_1= result_DDQN_5000_1['arr_2']
+
+result_DDQN_5000_2= np.load('Dueling_DDQN_MultiStepLeaning_main_Results_5000_2.npz', allow_pickle=True)
+return_mov_avg_5000_2 = result_DDQN_5000_2['arr_0']
+reward_mov_avg_5000_2 = result_DDQN_5000_2['arr_1']
+trajecotry_mov_avg_DDQN_5000_2= result_DDQN_5000_2['arr_2']
+
+result_DDQN_5000_3 = np.load('Dueling_DDQN_MultiStepLeaning_main_Results_5000_3.npz', allow_pickle=True)
+return_mov_avg_5000_3 = result_DDQN_5000_3['arr_0']
+reward_mov_avg_5000_3 = result_DDQN_5000_3['arr_1']
+trajecotry_mov_avg_DDQN_5000_3= result_DDQN_5000_3['arr_2']
+
+result_DDQN_5000_4= np.load('Dueling_DDQN_MultiStepLeaning_main_Results_5000_4.npz', allow_pickle=True)
+return_mov_avg_5000_4 = result_DDQN_5000_4['arr_0']
+reward_mov_avg_5000_4 = result_DDQN_5000_4['arr_1']
+trajecotry_mov_avg_DDQN_5000_4= result_DDQN_5000_4['arr_2']
 # print(result_no_mapping.files)
 # print(trajecotry_mov_avg_no_mapping)
 # print(return_mov_avg_no_mapping)
@@ -64,15 +84,18 @@ return_mov_avg_no_mapping4[1667:1801]=return_mov_avg_no_mapping4[1667:1801]
 # return_mov_avg_SNARM[0:300]=return_mov_avg_SNARM[0:300]*1.5
 fig = plt.figure(100)
 # plt.plot(np.arange(len(return_mov_avg_no_mapping)), return_mov_avg_no_mapping, 'r-',linewidth=0.5)
-plt.plot(y, return_mov_avg_SNARM, color='red',linestyle='-',linewidth=0.5)
-plt.plot(y, return_mov_avg_no_mapping4, color='green',linestyle='-',linewidth=0.5)
-plt.plot(y, return_mov_avg_no_mapping3_1750, color='blue',linestyle='-',linewidth=0.5)
+# plt.plot(y, return_mov_avg_SNARM, color='red',linestyle='-',linewidth=0.5)
+# plt.plot(y, return_mov_avg_no_mapping4, color='green',linestyle='-',linewidth=0.5)
+# plt.plot(y, return_mov_avg_no_mapping3_1750, color='blue',linestyle='-',linewidth=0.5)
 # plt.plot(y, return_mov_avg_DDQN, 'k-', linewidth=0.5)
-# plt.plot(y, return_mov_avg_DDQN_snr1, 'm-', linewidth=0.5)
+plt.plot(np.arange(len(return_mov_avg_5000_1)), return_mov_avg_5000_1, 'r-', linewidth=0.5)
+plt.plot(np.arange(len(return_mov_avg_5000_2)), return_mov_avg_5000_2, 'b-', linewidth=0.5)
+plt.plot(np.arange(len(return_mov_avg_5000_3)), return_mov_avg_5000_3, 'g-', linewidth=0.5)
+plt.plot(np.arange(len(return_mov_avg_5000_4)), return_mov_avg_5000_4, 'm-', linewidth=0.5)
 # plt.plot(y, return_mov_avg_DDQN_snr2, 'g-', linewidth=0.5)
 # plt.plot(y, return_mov_avg_SNARM_snr2, 'y-', linewidth=0.5)
 # print(len(return_mov_avg_SNARM))
-# print(len(return_mov_avg_no_mapping4))
+print(len(return_mov_avg_5000_1))
 # print(len(return_mov_avg_no_mapping3_1750))
 plt.grid()
 plt.rcParams['font.sans-serif'] = ['STSong']
@@ -86,7 +109,7 @@ plt.xlim(0,5000)
 plt.xlabel('训练回合数',fontdict={"size": 14})
 plt.ylabel('累积奖励值',fontdict={"size": 14})
 plt.legend(['MM3DQN算法','M3DQN算法','DDQN算法'],loc='best',prop={ "size": 14})
-plt.savefig(fname='scheme2reward.jpg',path='D:\PycharmProjects\SNARM-UAV-Learning\TEST_plot2',dpi=600)
+# plt.savefig(fname='scheme2reward.jpg',path='D:\PycharmProjects\SNARM-UAV-Learning\TEST_plot2',dpi=600)
 plt.show()
 
 # fig1 = plt.figure(100)

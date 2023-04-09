@@ -48,11 +48,11 @@ UPDATE_TARGET_EVERY = 5  # Terminal states (end of episodes)
 MAX_STEP = 300  # maximum number of time steps per episode
 MODEL_NAME = '512_256_128_128'  #这里是隐藏层中神经元个数
 MIN_REWARD = -1000  # For model save
-nSTEP = 30
+nSTEP = 1
 # parameter for multi-step learning
 
 # Environment settings
-EPISODES = 3000  # Number of training episodes
+EPISODES = 5000  # Number of training episodes
 
 # Exploration settings
 epsilon = 0.5  # not a constant, going to be decayed
@@ -576,7 +576,7 @@ plt.plot(np.arange(len(return_mov_avg)) + N, return_mov_avg, 'r-', linewidth=5)
 # plt.ylim(-6000,0)
 
 
-npzfile = np.load('radioenvir2.npz')
+npzfile = np.load('radioenvir_0dB.npz')
 OutageMapActual = npzfile['arr_0']
 X_vec = npzfile['arr_1']
 Y_vec = npzfile['arr_2']
@@ -586,11 +586,12 @@ fig = plt.figure(30)
 plt.contourf(np.array(X_vec) * 10, np.array(Y_vec) * 10, 1 - OutageMapActual)
 v = np.linspace(0, 1.0, 11, endpoint=True)
 cbar = plt.colorbar(ticks=v)
-
+plt.rcParams['font.sans-serif'] = ['STSong']
+plt.rcParams['axes.unicode_minus'] = False
 # v = np.linspace(0, 1.0, 11, endpoint=True)
 # cbar=plt.colorbar(ticks=v)
 # cbar.ax.set_yticklabels(['0','0.2','0.4','0.6','0.8','1.0'])
-cbar.set_label('coverage probability', labelpad=20, rotation=270, fontsize=14)
+cbar.set_label('中断概率', labelpad=20, rotation=270, fontsize=14)
 
 for episode_idx in range(episode - 200, episode):
     S_seq = ep_trajecotry[episode_idx]
@@ -607,11 +608,11 @@ plt.plot(DESTINATION[0, 0], DESTINATION[0, 1], 'b^', markersize=25)
 plt.xlabel('x (meter)', fontsize=14)
 plt.ylabel('y (meter)', fontsize=14)
 # plt.show()
-fig.savefig('trajectoriesNoMapping3.eps')
-fig.savefig('trajectoriesNoMapping3.pdf')
-fig.savefig('trajectoriesNoMapping3.jpg')
+# fig.savefig('trajectoriesNoMapping3.eps')
+# fig.savefig('trajectoriesNoMapping3.pdf')
+fig.savefig('trajectoriesNoMapping_5000_4.jpg')
 
 print('{}/{} episodes reach terminal'.format(ep_reach_terminal.count(True), episode))
 
 # Save the simulation ressult
-np.savez('DDQN_main_Results3.npz', return_mov_avg, ep_rewards, ep_trajecotry)
+np.savez('Dueling_DDQN_MultiStepLeaning_main_Results_5000_4.npz', return_mov_avg, ep_rewards, ep_trajecotry)

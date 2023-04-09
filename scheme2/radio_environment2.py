@@ -403,4 +403,4 @@ fig.savefig('CoverageMapTrue2.eps')
 fig.savefig('CoverageMapTrue2.pdf')
 fig.savefig('CoverageMapTrue2.jpg')
 
-np.savez('radioenvir2', OutageMapActual, X_vec, Y_vec, TEST_LOC_meter, TEST_LOC_ACTUAL_OUTAGE)
+np.savez('radioenvir_-35dB', OutageMapActual, X_vec, Y_vec, TEST_LOC_meter, TEST_LOC_ACTUAL_OUTAGE)

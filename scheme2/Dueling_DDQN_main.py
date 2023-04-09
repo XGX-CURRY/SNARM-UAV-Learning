@@ -49,7 +49,7 @@ MIN_REWARD = -1000  # For model save
 nSTEP = 30  # parameter for multi-step learning
 
 # Environment settings
-EPISODES = 2000  # Number of training episodes
+EPISODES = 5000  # Number of training episodes
 
 # Exploration settings
 epsilon = 0.5  # not a constant, going to be decayed
@@ -190,7 +190,7 @@ class UAVEnv:
         if LA.norm(next_state - DESTINATION) <= DIST_TOLERANCE:
             #求范数，默认是2范数，平方和的平方根
             terminal = True
-            print( 'Reach destination===============================!!!!!!!!')
+            print( 'Reach destination!')
         else:
             terminal = False
 
@@ -330,6 +330,7 @@ class DQNAgent:
         plt.xlabel('Epochs')
         plt.ylabel('MSE')
         plt.legend()
+        plt.savefig(fname='Training MSE1.jpg', path='D:\PycharmProjects\SNARM-UAV-Learning', dpi=600)
         # plt.show()
 
         plt.figure()  # clear figure
@@ -340,6 +341,7 @@ class DQNAgent:
         plt.ylabel('MAE')
         #    plt.ylim(0,15)
         plt.legend()
+        plt.savefig(fname='Training MAE1.jpg', path='D:\PycharmProjects\SNARM-UAV-Learning', dpi=600)
         # plt.show()
 
         result = self.model.evaluate(self.normalize_data(test_data), test_label)
@@ -573,7 +575,7 @@ plt.plot(np.arange(len(return_mov_avg)) + N, return_mov_avg, 'r-', linewidth=5)
 # plt.ylim(-6000,0)
 
 
-npzfile = np.load('radioenvir.npz')
+npzfile = np.load('radioenvir_0dB.npz')
 OutageMapActual = npzfile['arr_0']
 X_vec = npzfile['arr_1']
 Y_vec = npzfile['arr_2']
@@ -583,11 +585,12 @@ fig = plt.figure(30)
 plt.contourf(np.array(X_vec) * 10, np.array(Y_vec) * 10, 1 - OutageMapActual)
 v = np.linspace(0, 1.0, 11, endpoint=True)
 cbar = plt.colorbar(ticks=v)
-
+plt.rcParams['font.sans-serif'] = ['STSong']
+plt.rcParams['axes.unicode_minus'] = False
 # v = np.linspace(0, 1.0, 11, endpoint=True)
 # cbar=plt.colorbar(ticks=v)
 # cbar.ax.set_yticklabels(['0','0.2','0.4','0.6','0.8','1.0'])
-cbar.set_label('coverage probability', labelpad=20, rotation=270, fontsize=14)
+cbar.set_label('中断概率', labelpad=20, rotation=270, fontsize=14)
 
 for episode_idx in range(episode - 200, episode):
     S_seq = ep_trajecotry[episode_idx]
@@ -604,11 +607,11 @@ plt.plot(DESTINATION[0, 0], DESTINATION[0, 1], 'b^', markersize=25)
 plt.xlabel('x (meter)', fontsize=14)
 plt.ylabel('y (meter)', fontsize=14)
 # plt.show()
-fig.savefig('trajectoriesNoMapping.eps')
-fig.savefig('trajectoriesNoMapping.pdf')
-fig.savefig('trajectoriesNoMapping.jpg')
+# fig.savefig('trajectoriesNoMapping_5000.eps')
+# fig.savefig('trajectoriesNoMapping_5000.pdf')
+fig.savefig('trajectoriesNoMapping_5000_1.jpg')
 
 print('{}/{} episodes reach terminal'.format(ep_reach_terminal.count(True), episode))
 
 # Save the simulation ressult
-np.savez('Dueling_DDQN_MultiStepLeaning_main_Results_100.npz', return_mov_avg, ep_rewards, ep_trajecotry)
+np.savez('Dueling_DDQN_MultiStepLeaning_main_Results_5000_1.npz', return_mov_avg, ep_rewards, ep_trajecotry)
