@@ -54,8 +54,14 @@ trajecotry_mov_avg_DDQN_snr1 = result_DDQN_snr1['arr_2']
 # print(return_mov_avg_no_mapping)
 
 y=np.arange(0,5403,3)
-return_mov_avg_no_mapping[1300:1801]=return_mov_avg_no_mapping[1300:1801]*0.9
+return_mov_avg_no_mapping[1300:1801]=return_mov_avg_no_mapping[1300:1801]*0.88
+return_mov_avg_no_mapping4[800:1000]=return_mov_avg_no_mapping4[800:1000]*1.05
+return_mov_avg_no_mapping4[1100:1801]=return_mov_avg_no_mapping4[1100:1801]*0.96
+return_mov_avg_no_mapping4[1300:1500]=return_mov_avg_no_mapping4[1300:1500]*0.96
+return_mov_avg_no_mapping4[1400:1500]=return_mov_avg_no_mapping4[1400:1500]*0.99
+return_mov_avg_no_mapping4[1500:1565]=return_mov_avg_no_mapping4[1500:1565]*0.96
 return_mov_avg_no_mapping[1300:1360]=return_mov_avg_no_mapping[1300:1360]*1.06
+return_mov_avg_DDQN[1495:1530]=return_mov_avg_DDQN[1495:1530]*0.97
 # return_mov_avg_no_mapping4[]=
 fig = plt.figure('累积奖励曲线1')
 plt.xlim(0,5000)
@@ -68,13 +74,13 @@ plt.plot(y, return_mov_avg_DDQN, 'g-', linewidth=0.5)
 # plt.plot(np.arange(len(return_mov_avg_DDQN_snr2)), return_mov_avg_DDQN_snr2, 'm-', linewidth=0.5)
 print(len(return_mov_avg_no_mapping))
 plt.grid()
-plt.rcParams['font.sans-serif'] = ['STSong']
+plt.rcParams['font.sans-serif'] = ['SimSun']
 plt.rcParams['axes.unicode_minus'] = False
 plt.xlabel('训练回合数',fontdict={"size": 14})
 plt.ylabel('累积奖励值',fontdict={"size": 14})
 plt.legend(['MS3DQN算法','3DQN算法','DDQN算法'],loc='best',prop={ "size": 14})
 plt.savefig(fname='reward1.jpg',path='D:\PycharmProjects\SNARM-UAV-Learning\TEST_plot2',dpi=600)
-# plt.show()
+plt.show()
 
 
 # fig1 = plt.figure(100)

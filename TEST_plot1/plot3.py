@@ -21,9 +21,9 @@ plt.grid()
 plt.plot(x, [3.15e3, 2.9e3, 1.95e3, 1.25e3, 1.25e3, 1.25e3, 1.25e3, 1.25e3], 'o-r', linewidth=2)
 plt.plot(x, [3.25e3, 3.15e3, 2.9e3, 2.32e3, 1.96e3, 1.75e3, 1.75e3, 1.75e3], '*--b', linewidth=2)
 plt.plot(x, [3.5e3, 3.42e3, 3.20e3, 2.85e3, 2.35e3, 2.1e3, 2e3, 2e3], '^--g', linewidth=2)
-plt.rcParams['font.sans-serif'] = ['STSong']
+plt.rcParams['font.sans-serif'] = ['SimSun']
 plt.rcParams['axes.unicode_minus'] = False
-plt.xlabel('无人机能量消耗 (kJ)',fontdict={"size": 14})
+plt.xlabel('无人机能耗 (kJ)',fontdict={"size": 14})
 plt.ylabel('系统平均信息年龄',fontdict={"size": 14})
 plt.legend(['MS3DQN算法','3DQN算法','DDQN算法'],loc='best',prop={ "size": 14})
 plt.savefig(fname='uav energy.jpg',path='D:\PycharmProjects\SNARM-UAV-Learning\TEST_plot2',dpi=600)
